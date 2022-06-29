@@ -17,7 +17,12 @@ public class KafkaProducerController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public String create(@RequestBody String message) {
-        producer.send(message);
+
+        try {
+            producer.send(message);
+        } catch (Exception e) {
+            return e.getMessage();
+        }
         return "message sent";
     }
 }
